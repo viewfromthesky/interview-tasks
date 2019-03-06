@@ -6,9 +6,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 // Task 2
 
+// Specify number of elements to add once
+// Specify a holding array for all generated elements
 var numberOfElements = 100;
 var elementsCollection = [];
-var elementsCollectionLength = 0;
 
 var Number = function () {
   function Number(value, className) {
@@ -58,6 +59,8 @@ var clearAll = function clearAll(arrayOfElements) {
 };
 
 var _loop = function _loop() {
+  // Create new Number instance for each generated element
+  // Set up <p> element for each loop iteration
   var number = new Number(i + 1, "number");
   var element = document.createElement("p");
   var arrayOfDivisors = void 0;
@@ -65,20 +68,23 @@ var _loop = function _loop() {
   element.className = number.className;
   element.appendChild(document.createTextNode(number.value));
 
+  // Add mouseover event listener to colour hovered element
+  // and begin search for divisors
   element.addEventListener("mouseover", function () {
     element.style.backgroundColor = "yellow";
+    // Number.findDivisors() returns array of divisors
     arrayOfDivisors = number.findDivisors();
   });
 
+  // Add mouseout event listener to reset colours
+  // only for affected elements, not entire DOM
   element.addEventListener("mouseout", function () {
     element.style.backgroundColor = "transparent";
     clearAll(arrayOfDivisors);
   });
 
+  // Add element to holding array specified at top
   elementsCollection.push(element);
-  if (i === numberOfElements - 1) {
-    elementsCollectionLength = elementsCollection.length;
-  }
 };
 
 for (var i = 0; i < numberOfElements; i++) {
@@ -86,10 +92,14 @@ for (var i = 0; i < numberOfElements; i++) {
 }
 
 for (var j = 0; j < numberOfElements; j++) {
-  var selection = Math.floor(Math.random() * elementsCollectionLength);
+  // Select a random entry from the holding array based
+  // on current array length
+  var selection = Math.floor(Math.random() * elementsCollection.length);
 
+  // Add selected element to DOM
   document.body.appendChild(elementsCollection[selection]);
-  elementsCollection.splice(selection, 1);
 
-  elementsCollectionLength = elementsCollection.length;
+  // Remove selected element from array to ensure it
+  // doesn't appear more than once
+  elementsCollection.splice(selection, 1);
 }

@@ -1,8 +1,9 @@
 // Task 2
 
+// Specify number of elements to add once
+// Specify a holding array for all generated elements
 const numberOfElements = 100;
 let elementsCollection = [];
-let elementsCollectionLength = 0;
 
 class Number {
   constructor(value, className) {
@@ -47,6 +48,8 @@ const clearAll = arrayOfElements => {
 };
 
 for (var i = 0; i < numberOfElements; i++) {
+  // Create new Number instance for each generated element
+  // Set up <p> element for each loop iteration
   const number = new Number(i + 1, "number");
   let element = document.createElement("p");
   let arrayOfDivisors;
@@ -54,27 +57,34 @@ for (var i = 0; i < numberOfElements; i++) {
   element.className = number.className;
   element.appendChild(document.createTextNode(number.value));
 
+  // Add mouseover event listener to colour hovered element
+  // and begin search for divisors
   element.addEventListener("mouseover", () => {
     element.style.backgroundColor = "yellow";
+    // Number.findDivisors() returns array of divisors
     arrayOfDivisors = number.findDivisors();
   });
 
+  // Add mouseout event listener to reset colours
+  // only for affected elements, not entire DOM
   element.addEventListener("mouseout", () => {
     element.style.backgroundColor = "transparent";
     clearAll(arrayOfDivisors);
   });
 
+  // Add element to holding array specified at top
   elementsCollection.push(element);
-  if (i === numberOfElements - 1) {
-    elementsCollectionLength = elementsCollection.length;
-  }
 }
 
 for (var j = 0; j < numberOfElements; j++) {
-  var selection = Math.floor(Math.random() * elementsCollectionLength);
+  // Select a random entry from the holding array based
+  // on current array length
+  var selection = Math.floor(Math.random() * elementsCollection.length);
 
+  // Add selected element to DOM
   document.body.appendChild(elementsCollection[selection]);
-  elementsCollection.splice(selection, 1);
 
-  elementsCollectionLength = elementsCollection.length;
+  // Remove selected element from array to ensure it
+  // doesn't appear more than once
+  elementsCollection.splice(selection, 1);
 }
