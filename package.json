@@ -1,0 +1,15 @@
+{
+  "name": "interview-tasks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.15.1",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "live-server": "^1.2.1",
+    "prettier": "^1.16.4"
+  }
+}
